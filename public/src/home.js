@@ -58,13 +58,19 @@ function getMostPopularBooks(books) {
 
 function getMostPopularAuthors(books, authors) {
   // return ordered list of most popular authors & limit to top five //
+  // create new array for final result
    let result = []
+   // loop through authors
    authors.forEach((author) => {
+    // filter authors by ones that match author.id
     let bookAuth = books.filter((book) => book.authorId === author.id)
+    // add how many times books were borrowed
     let bookAuthBorrows = bookAuth.reduce((borrowTot, book) => borrowTot + book.borrows.length, 0)
+    // push final result into result array
     result.push ({name: author.name.first + " " + author.name.last, count: bookAuthBorrows})
 
    })
+   // sort results from most to least and slice down to top five results
    return result.sort((authorA, authorB) => (authorA.count < authorB.count ? 1 : -1)).slice(0,5)
 
 
